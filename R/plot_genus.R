@@ -36,6 +36,7 @@
 #' @importFrom dplyr group_by summarise mutate arrange
 #' @importFrom rlang .data syms
 #' @importFrom RColorBrewer brewer.pal
+#' @importFrom magrittr %>%
 #' @export
 plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
   if (missing(group_vars) || length(group_vars) < 1) {

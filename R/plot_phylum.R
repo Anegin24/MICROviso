@@ -33,6 +33,7 @@
 #' @importFrom dplyr group_by summarise mutate arrange
 #' @importFrom rlang .data syms
 #' @importFrom RColorBrewer brewer.pal
+#' @importFrom magrittr %>%
 #' @export
 plot_phylum <- function(data, group_vars, facet = NULL, x_var = NULL) {
   if (missing(group_vars) || length(group_vars) < 1) {
