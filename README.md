@@ -10,6 +10,9 @@ Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh v�
 - Kiểm tra sự biến đổi theo nhóm
 
 ---
+## Setup
+Download: 
+Setup: devtools::install_local("~/Bioinformatics/MICROviso-master.zip")
 
 ## 📁 1. Import dữ liệu từ `phyloseq`
 
