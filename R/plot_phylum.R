@@ -28,7 +28,11 @@
 #' }
 #'
 #' @seealso \code{\link{plot_genus}}, \code{\link[phyloseq]{tax_glom}}, \code{\link[ggplot2]{ggplot}}
-#'
+#' @import ggplot2
+#' @importFrom phyloseq tax_glom transform_sample_counts psmelt
+#' @importFrom dplyr group_by summarise mutate arrange
+#' @importFrom rlang .data syms
+#' @importFrom RColorBrewer brewer.pal
 #' @export
 plot_phylum <- function(data, group_vars, facet = NULL, x_var = NULL) {
   if (missing(group_vars) || length(group_vars) < 1) {

@@ -31,6 +31,11 @@
 #'
 #' @seealso \code{\link{plot_phylum}}, \code{\link[phyloseq]{tax_glom}}, \code{\link[ggplot2]{ggplot}}
 #'
+#' @import ggplot2
+#' @importFrom phyloseq tax_glom transform_sample_counts psmelt
+#' @importFrom dplyr group_by summarise mutate arrange
+#' @importFrom rlang .data syms
+#' @importFrom RColorBrewer brewer.pal
 #' @export
 plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
   if (missing(group_vars) || length(group_vars) < 1) {
@@ -51,7 +56,7 @@ plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
 
   # Summarise by genus and grouping vars
   grouped <- melted %>%
-    group_by(Genus, !!!rlang::syms(group_vars)) %>%
+    group_by(Genus, !!!syms(group_vars)) %>%
     summarise(mean_abundance = mean(Abundance), .groups = "drop")
 
   # Identify top genera
@@ -64,7 +69,7 @@ plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
   # Recode 'Others'
   grouped <- grouped %>%
     mutate(Genus = if_else(Genus %in% top_genera$Genus, Genus, "Others")) %>%
-    group_by(Genus, !!!rlang::syms(group_vars)) %>%
+    group_by(Genus, !!!syms(group_vars)) %>%
     summarise(mean_abundance = sum(mean_abundance), .groups = "drop")
 
   # Build plot
@@ -75,7 +80,7 @@ plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
     guides(fill = guide_legend(ncol = 1)) +
     theme_q2r() +
     scale_fill_manual(name = NULL, values = c(
-      RColorBrewer::brewer.pal(8, "Dark2"),
+      brewer.pal(8, "Dark2"),
       "blue", "gray30", "yellow", "red", "darkmagenta", "green", "pink2", "darkgreen",
       "cyan", "orange", "purple", "lightblue", "lightgreen", "salmon", "gold", "darkred", "navy", "orchid"
     ))

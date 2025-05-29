@@ -7,8 +7,8 @@
 #' @param alpha A `data.frame` containing alpha diversity metrics (e.g., from `alpha_cal()`).
 #' @param metadata A `data.frame` containing sample metadata (must share an ID column with `alpha`).
 #' @param metrics A character vector of metrics to visualize (e.g., c("Observed", "Shannon")).
-#' @param x A string specifying the column in metadata to use for the x-axis (e.g., `"treatment"`).
-#' @param facet Optional. A string specifying the metadata column to facet by (e.g., `"timeline"`).
+#' @param x A string specifying the column in metadata to use for the x-axis (e.g., "treatment").
+#' @param facet Optional. A string specifying the metadata column to facet by (e.g., "timeline").
 #'
 #' @return A named list with:
 #' \describe{
@@ -24,11 +24,11 @@
 #'
 #' @seealso \code{\link{alpha_cal}}, \code{\link[ggplot2]{ggplot}}, \code{\link[patchwork]{wrap_plots}}
 #'
-#' @examples
-#' \dontrun{
-#' alpha <- alpha_cal(physeq)
-#' plot_alpha(alpha, metadata, x = "treatment", facet = "timeline")
-#' }
+#' @import ggplot2
+#' @importFrom dplyr inner_join group_by summarise mutate arrange
+#' @importFrom rlang .data syms
+#' @importFrom patchwork wrap_plots plot_annotation
+#' @importFrom RColorBrewer brewer.pal
 #'
 #' @export
 plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao1", "Simpson"), x, facet = NULL) {
@@ -50,24 +50,22 @@ plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao
 
   plots <- list()
   for (metric in metrics) {
-    p <- ggplot(merged, aes(x = .data[[x]], y = .data[[metric]])) +
-      geom_boxplot(alpha = 0.5) +
-      labs(title = paste(metric, "Diversity"), y = metric, x = x) +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    p <- ggplot2::ggplot(merged, ggplot2::aes(x = .data[[x]], y = .data[[metric]])) +
+      ggplot2::geom_boxplot(alpha = 0.5) +
+      ggplot2::labs(title = paste(metric, "Diversity"), y = metric, x = x) +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
     if (!is.null(facet)) {
-      p <- p + facet_wrap(as.formula(paste("~", facet)))
+      p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet)))
     }
     plots[[metric]] <- p
 
-    # Assign plot to Global Environment with name based on metric
     assign(metric, p, envir = globalenv())
   }
 
-  # Combine plots using patchwork
   if (all(c("Shannon", "Observed", "Chao1", "Simpson") %in% names(plots))) {
     combined <- (plots[["Shannon"]] | plots[["Observed"]]) / (plots[["Chao1"]] | plots[["Simpson"]]) +
       patchwork::plot_annotation(tag_levels = "A") &
-      theme(plot.tag = element_text(size = 16, face = "bold"))
+      ggplot2::theme(plot.tag = ggplot2::element_text(size = 16, face = "bold"))
   } else {
     combined <- patchwork::wrap_plots(plots)
   }
