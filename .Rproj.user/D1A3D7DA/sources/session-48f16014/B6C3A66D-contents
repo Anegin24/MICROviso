@@ -1,0 +1,123 @@
+library(tidyverse)
+library(ggplot2)
+library(qiime2R)
+# Feature & taxonomy table processing
+taxonomy<-read_qza("taxonomy.qza")$data
+taxonomy<-taxonomy%>%
+  filter(Confidence>0.97)
+colnames(taxonomy)[colnames(taxonomy) == "Feature.ID"] <- "FeatureID"
+table<-read_qza("table.qza")$data
+table<-data.frame(table)
+table <- rownames_to_column(table, var = "FeatureID")
+taxonomy<-inner_join(taxonomy,table,by="FeatureID")
+taxonomy <- taxonomy%>%
+  select(-FeatureID,-Confidence)
+taxonomy<-taxonomy%>%
+  pivot_longer(-Taxon,names_to = "sample-id", values_to = "count")
+# Import metadata
+metadata<-read_tsv("sample-metadata.tsv")
+
+# Taxonomy group
+taxonomy<-inner_join(taxonomy,metadata,by="sample-id")
+taxonomy<-taxonomy%>%
+  group_by(`sample-id`)%>%
+  mutate(abundance=100*count/sum(count),.groups="drop")%>%
+  group_by(`sample-id`,treatment,timeline,Taxon)%>%
+  summarize(abundance=sum(abundance),.groups="drop")%>%
+  group_by(Taxon,treatment,timeline)%>%
+  summarize(mean_abundance=mean(abundance),.groups="drop")
+
+# Find top abundance
+a<-taxonomy%>%
+  group_by(Taxon)%>%
+  summarize(max=max(mean_abundance))%>%
+  arrange(desc(max))
+
+# Indicated which are low abundance
+Taxon_pool<-taxonomy%>%
+  group_by(Taxon)%>%
+  summarize(pool=max(mean_abundance)<1.7,.groups="drop")
+
+# Modified, reorder taxa
+taxonomy<-taxonomy%>%
+  inner_join(.,Taxon_pool,by="Taxon")%>%
+  mutate(Taxon = if_else(pool,"Others",Taxon)) %>%
+  group_by(treatment,timeline,Taxon)%>%
+  summarize(mean_abundance=sum(mean_abundance))%>%
+  mutate(Taxon=fct_reorder(Taxon,mean_abundance))%>%
+  mutate(Taxon = fct_relevel(Taxon, "Others", after = Inf))
+
+#Taxonomy bar plot 
+taxonomy%>%
+  ggplot(aes(x=timeline,y=mean_abundance,fill=Taxon))+
+  geom_col()+
+  facet_grid(~ treatment) +
+  scale_y_continuous(expand=c(0,0))+
+  scale_fill_manual(name = NULL, values = c(
+    brewer.pal(8, "Dark2"), # 8 colors from Dark2 palette
+    "blue", "gray30", "yellow", "red", "darkmagenta", "green", "pink2", "darkgreen",
+    "cyan", "orange", "purple", "lightblue", "lightgreen", "salmon", "gold", "darkred", "navy", "orchid"
+  )) +
+  ylab("Relative Abundance (%)")+
+  theme_q2r()+
+  theme(axis.text.x=element_markdown(size=14,angle=45,hjust=1),
+        axis.title.x = element_blank(),
+        axis.title.y = element_markdown(size=14),
+        axis.text.y=element_markdown(size=14),
+        legend.text = element_markdown(size=14,face="italic"),
+        strip.text = element_text(size = 14))+
+  guides(fill = guide_legend(ncol = 1))  
+
+# Modified taxonomy for genus
+taxonomy<-taxonomy%>%
+  separate(Taxon,
+           into=c("kingdom", "phylum", "class", "order", "family", "genus","species"),sep=";")%>%
+  mutate(genus=str_replace(string=genus,pattern="g__",replacement=""),
+         phylum=str_replace(string=phylum,pattern="p__",replacement=""),
+         family=str_replace(string=family,pattern="f__",replacement=""))%>%
+  mutate(Taxon = if_else(!is.na(genus) & genus != "" ,paste(phylum, genus, sep = ";"),phylum))%>%
+  select(`sample-id`,treatment,timeline,Taxon,count)%>%
+  mutate(Taxon=if_else(is.na(Taxon),"Unclassifier",Taxon))
+taxonomy<-taxonomy%>%
+  group_by(`sample-id`,treatment,timeline,Taxon)%>%
+  summarize(count=sum(count),.groups="drop")%>%
+  group_by(`sample-id`)%>%
+  mutate(abundance=100*count/sum(count),.groups="drop")%>%
+  group_by(treatment,timeline,Taxon)%>%
+  summarize(mean_abundance=mean(abundance),.groups="drop")
+
+a<-taxonomy%>%
+  group_by(Taxon)%>%
+  summarize(max=max(mean_abundance))%>%
+  arrange(desc(max))
+cutoff<-a$max[20]
+
+Taxon_pool<-taxonomy%>%
+  group_by(Taxon)%>%
+  summarize(pool=max(mean_abundance)<cutoff,.groups="drop")
+taxonomy<-taxonomy%>%
+  inner_join(.,Taxon_pool,by="Taxon")%>%
+  mutate(Taxon = if_else(pool,"Others",Taxon)) %>%
+  group_by(treatment,timeline,Taxon)%>%
+  summarize(mean_abundance=sum(mean_abundance))%>%
+  mutate(Taxon=fct_reorder(Taxon,mean_abundance))%>%
+  mutate(Taxon = fct_relevel(Taxon, "Others", after = Inf))
+taxonomy%>%
+  ggplot(aes(x=timeline,y=mean_abundance,fill=Taxon))+
+  geom_col()+
+  facet_grid(~ treatment) +
+  scale_y_continuous(expand=c(0,0))+
+  scale_fill_manual(name = NULL, values = c(
+    brewer.pal(8, "Dark2"), # 8 colors from Dark2 palette
+    "blue", "gray30", "yellow", "red", "darkmagenta", "green", "pink2", "darkgreen",
+    "cyan", "orange", "purple", "lightblue", "lightgreen", "salmon", "gold", "darkred", "navy", "orchid"
+  )) +
+  ylab("Relative Abundance (%)")+
+  theme_q2r()+
+  theme(axis.text.x=element_markdown(size=14,angle=45,hjust=1),
+        axis.title.x = element_blank(),
+        axis.title.y = element_markdown(size=14),
+        axis.text.y=element_markdown(size=14),
+        legend.text = element_markdown(size=14,face="italic"),
+        strip.text = element_text(size = 14))+
+  guides(fill = guide_legend(ncol = 1))  

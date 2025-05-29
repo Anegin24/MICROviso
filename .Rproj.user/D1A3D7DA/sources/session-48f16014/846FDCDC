@@ -1,0 +1,26 @@
+{
+    "id": "846FDCDC",
+    "path": "/media/anegin97/DATA/DATA/Metagenomic/CBBproject/antibiotic mouse/Antibiotic mouse.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1748429643375.0,
+    "source_on_save": false,
+    "relative_order": 13,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "7,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1748432565,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1748432565709,
+    "read_only": false,
+    "read_only_alternatives": []
+}

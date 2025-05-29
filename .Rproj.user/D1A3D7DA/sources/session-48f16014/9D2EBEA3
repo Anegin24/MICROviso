@@ -1,0 +1,27 @@
+{
+    "id": "9D2EBEA3",
+    "path": "~/Bioinformatics/MICROviso/R/Import_metadata.R",
+    "project_path": "R/Import_metadata.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1748426171475.0,
+    "source_on_save": false,
+    "relative_order": 10,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "23,34",
+        "scrollLine": "16"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1748428494,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1748428494143,
+    "read_only": false,
+    "read_only_alternatives": []
+}
