@@ -1,0 +1,44 @@
+Go to your project directory:
+
+bash
+Copy
+Edit
+cd /path/to/your/project
+Initialize the Git repository (if not done yet):
+
+bash
+Copy
+Edit
+git init
+Add all files to the staging area:
+
+bash
+Copy
+Edit
+git add .
+Commit the files:
+
+bash
+Copy
+Edit
+git commit -m "Initial commit"
+Add the remote repository:
+Replace the URL below with your actual repo URL.
+
+bash
+Copy
+Edit
+git remote add origin https://github.com/yourusername/your-repo.git
+Push the code to the remote repository:
+If your remote repo is empty, push like this:
+
+bash
+Copy
+Edit
+git push -u origin master
+Or, if using main as the default branch:
+
+bash
+Copy
+Edit
+git push -u origin main
