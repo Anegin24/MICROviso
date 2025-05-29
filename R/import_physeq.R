@@ -18,13 +18,14 @@ import_phyloseq <- function(phyloseq_path) {
   table <- tibble::rownames_to_column(table, var = "FeatureID")
 
   metadata <- as.data.frame(sample_data(ps))
-  metadata <- tibble::rownames_to_column(metadata, var = "sample-id")
+  metadata$SampleID <- rownames(metadata)
+  rownames(metadata) <- NULL
 
   assign("ps", ps, envir = .GlobalEnv)
   assign("taxonomy", taxonomy, envir = .GlobalEnv)
   assign("table", table, envir = .GlobalEnv)
   assign("metadata", metadata, envir = .GlobalEnv)
 
-  message("Variables created in global environment: ps, taxonomy, table")
+  message("Variables created in global environment: ps, taxonomy, table, metadata")
   invisible(NULL)
 }

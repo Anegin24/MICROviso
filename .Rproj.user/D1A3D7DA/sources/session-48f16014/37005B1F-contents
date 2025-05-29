@@ -18,6 +18,7 @@ metrics <- c("Observed", "Shannon", "Chao1", "Simpson")
 alphadiversity <- estimate_richness(data, measures = c("Observed", "Shannon","Chao1","Simpson"))
 
 #Plot Alpha Diversity
+alphadiversity<-inner_join(alphadiversity,metadata,by="SampleID")
 for (metric in metrics) {
   p <- ggplot(merged, aes(x = timeline, y = .data[[metric]])) +
     geom_boxplot(alpha = 0.5) +
@@ -73,7 +74,7 @@ ggplot(genus, aes(x = treatment, y = mean_abundance, fill = Genus)) +
   facet_wrap(~ timeline) +
   labs(x = "Treatment", y = "Mean Relative Abundance") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  guides(fill = guide_legend(ncol = 1))  
+  guides(fill = guide_legend(ncol = 1))
 
 ################################ DESEQ2 ######################################
 
@@ -87,7 +88,7 @@ dds <- phyloseq_to_deseq2(data_genus, ~ treatment * time_numeric)
 dds <- DESeq(dds, test = "LRT", reduced = ~ treatment + time_numeric)
 res <- results(dds)
 res_df <- as.data.frame(res)
-res_sig <- res_df %>% 
+res_sig <- res_df %>%
   filter(!is.na(padj), padj < 0.05) %>%
   arrange(padj)
 res_sig$ASV <- rownames(res_sig)
@@ -114,7 +115,7 @@ res_w0_df <- as.data.frame(res_w0)
 res_w0_df$ASV <- rownames(res_w0_df)
 res_w0_df <- inner_join(res_w0_df, taxa, by = "ASV")
 
-# filter padj < 0.01 
+# filter padj < 0.01
 res_w0_sig <- res_w0_df %>%
   filter(!is.na(padj), padj < 0.01, abs(log2FoldChange) > 1) %>%
   arrange(log2FoldChange)
