@@ -1,16 +1,22 @@
 Package: MICROviso
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Microbiome Visualization Toolkit
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Authors@R: 
+    person(given = "Nguyen Huu", family = "An", 
+           email = "youremail@example.com", 
+           role = c("aut", "cre"))
+Description: A toolkit for microbiome data import, processing, and visualization,
+    including alpha diversity, taxonomic barplots, and DESeq2-based time-series analysis.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+    phyloseq,
+    tidyverse,
+    patchwork,
+    ggplot2,
+    DESeq2,
+    RColorBrewer
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1

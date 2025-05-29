@@ -1,11 +1,36 @@
-#' Plot mean relative abundance at genus level
+#' Plot Mean Relative Abundance at Genus Level
 #'
-#' @param data A phyloseq object
-#' @param group_vars Character vector of metadata variables to group by (e.g., c("treatment", "timeline"))
-#' @param top Integer number of top genera to display, remaining will be grouped as 'Others'
-#' @param facet (Optional) Metadata variable to facet by (e.g., "timeline")
-#' @param x_var Variable to be used as x-axis (must be one of group_vars)
-#' @return A ggplot2 object
+#' This function creates a stacked bar plot of the mean relative abundance of genera
+#' in a `phyloseq` object, allowing grouping by multiple metadata variables, optional
+#' faceting, and customizable top genera display.
+#'
+#' @param data A `phyloseq` object containing OTU, taxonomy, and metadata.
+#' @param group_vars Character vector of metadata variables to group by
+#'   (e.g., \code{c("treatment", "timeline")}).
+#' @param top Integer number of top genera to display. All other genera will be grouped as \code{"Others"}.
+#' @param facet Optional. A metadata variable name used for faceting the plot (e.g., \code{"timeline"}).
+#' @param x_var Optional. A variable to use for the x-axis (must be one of \code{group_vars}).
+#'   If not provided, the first element of \code{group_vars} is used by default.
+#'
+#' @return A `ggplot2` object showing stacked bar plots of mean genus relative abundance.
+#'
+#' @details
+#' This function:
+#' \itemize{
+#'   \item Aggregates abundance data to the Genus level.
+#'   \item Transforms counts to relative abundances.
+#'   \item Groups by selected metadata variables and computes mean abundance.
+#'   \item Displays the top N most abundant genera, grouping others as "Others".
+#'   \item Allows optional faceting using another metadata variable.
+#' }
+#'
+#' @examples
+#' \dontrun{
+#' plot_genus(data = ps, group_vars = c("treatment", "timeline"), x_var = "treatment", facet = "timeline")
+#' }
+#'
+#' @seealso \code{\link{plot_phylum}}, \code{\link[phyloseq]{tax_glom}}, \code{\link[ggplot2]{ggplot}}
+#'
 #' @export
 plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
   if (missing(group_vars) || length(group_vars) < 1) {

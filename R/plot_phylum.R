@@ -1,10 +1,34 @@
-#' Plot mean relative abundance at phylum level
+#' Plot Mean Relative Abundance at Phylum Level
 #'
-#' @param data A phyloseq object
-#' @param group_vars Character vector of metadata variables to group by (e.g., c("treatment", "timeline"))
-#' @param facet (Optional) Metadata variable to facet by (e.g., "timeline")
-#' @param x_var Variable to be used as x-axis (must be one of group_vars)
-#' @return A ggplot2 object
+#' This function plots the mean relative abundance of phyla in a `phyloseq` object
+#' using stacked bar charts. It allows grouping by one or more metadata variables
+#' and optional faceting.
+#'
+#' @param data A `phyloseq` object containing taxonomic and sample metadata.
+#' @param group_vars A character vector of metadata variables to group by
+#'   (e.g., \code{c("treatment", "timeline")}).
+#' @param facet Optional. A metadata variable to facet by (e.g., \code{"timeline"}).
+#' @param x_var Optional. A variable to use as the x-axis. Must be one of \code{group_vars}.
+#'   If not provided, the first variable in \code{group_vars} will be used.
+#'
+#' @return A `ggplot2` object showing stacked bar plots of mean phylum relative abundance.
+#'
+#' @details
+#' This function:
+#' \itemize{
+#'   \item Aggregates data at the Phylum level using \code{tax_glom}.
+#'   \item Converts counts to relative abundance.
+#'   \item Groups and summarizes mean relative abundance across the provided metadata variables.
+#'   \item Optionally facets the plot by an additional variable.
+#' }
+#'
+#' @examples
+#' \dontrun{
+#' plot_phylum(data = ps, group_vars = c("treatment", "timeline"), x_var = "treatment", facet = "timeline")
+#' }
+#'
+#' @seealso \code{\link{plot_genus}}, \code{\link[phyloseq]{tax_glom}}, \code{\link[ggplot2]{ggplot}}
+#'
 #' @export
 plot_phylum <- function(data, group_vars, facet = NULL, x_var = NULL) {
   if (missing(group_vars) || length(group_vars) < 1) {

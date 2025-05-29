@@ -1,24 +1,35 @@
-#' Calculate alpha diversity metrics
+#' Plot Alpha Diversity Boxplots and Export Plots to Global Environment
 #'
-#' @param data A phyloseq object
-#' @param metrics A character vector of alpha diversity metrics to calculate (default: c("Observed", "Shannon", "Chao1", "Simpson"))
-#' @return A data.frame of alpha diversity values
-#' @export
-alpha_cal <- function(data, metrics = c("Observed", "Shannon", "Chao1", "Simpson")) {
-  if (!inherits(data, "phyloseq")) stop("Input must be a phyloseq object")
-  result <- estimate_richness(data, measures = metrics)
-  result$SampleID <- rownames(result)
-  return(result)
-}
-
-#' Plot alpha diversity boxplots and assign individual plots to global environment
+#' This function generates boxplots for specified alpha diversity metrics using `ggplot2`
+#' and optionally facets them by a grouping variable. It also assigns each individual plot
+#' and the combined patchwork plot to the global environment for direct access.
 #'
-#' @param alpha A data.frame of alpha diversity values
-#' @param metadata A data.frame of sample metadata
-#' @param metrics Character vector of metrics to plot (e.g., c("Observed", "Shannon"))
-#' @param x Variable name in metadata to use for x-axis (e.g., "timeline")
-#' @param facet Variable name in metadata to facet by (optional)
-#' @return A list of individual ggplot objects and a combined patchwork plot
+#' @param alpha A `data.frame` containing alpha diversity metrics (e.g., from `alpha_cal()`).
+#' @param metadata A `data.frame` containing sample metadata (must share an ID column with `alpha`).
+#' @param metrics A character vector of metrics to visualize (e.g., c("Observed", "Shannon")).
+#' @param x A string specifying the column in metadata to use for the x-axis (e.g., `"treatment"`).
+#' @param facet Optional. A string specifying the metadata column to facet by (e.g., `"timeline"`).
+#'
+#' @return A named list with:
+#' \describe{
+#'   \item{plots}{A named list of individual `ggplot` objects, keyed by metric name.}
+#'   \item{combined}{A combined `patchwork` plot of all provided metrics.}
+#' }
+#'
+#' @details
+#' This function automatically attempts to match the sample identifier columns between
+#' `alpha` and `metadata` by comparing overlapping values. It uses `patchwork` to combine plots.
+#' The result includes individual plots assigned to global environment (e.g., `Observed`, `Shannon`)
+#' and a combined object named `alpha_combined`.
+#'
+#' @seealso \code{\link{alpha_cal}}, \code{\link[ggplot2]{ggplot}}, \code{\link[patchwork]{wrap_plots}}
+#'
+#' @examples
+#' \dontrun{
+#' alpha <- alpha_cal(physeq)
+#' plot_alpha(alpha, metadata, x = "treatment", facet = "timeline")
+#' }
+#'
 #' @export
 plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao1", "Simpson"), x, facet = NULL) {
   match_col <- function(df1, df2) {
