@@ -58,7 +58,7 @@ alpha <- alpha_cal(ps)
 - Trả về: List gồm `plots` và `combined`.
 
 ```r
-plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", facet = "timeline")
+alphaplot<-plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", facet = "timeline")
 ```
 
 ---
