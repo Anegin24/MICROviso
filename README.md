@@ -18,10 +18,11 @@ Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh v�
 - Trả về: List gồm `ps`, `taxonomy`, `table`.
 
 ```r
-result <- import_physeq("v3-v4.phyloseq")
-ps <- result$ps
-taxonomy <- result$taxonomy
-table <- result$table
+import_physeq("v3-v4.phyloseq")
+ps 
+taxonomy 
+table
+metadata
 ```
 
 ---
