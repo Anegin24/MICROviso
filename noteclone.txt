@@ -17,7 +17,9 @@ Guide: Push a Project Directory to a Git Repository
    (Replace with your actual URL)
    git remote add origin https://github.com/yourusername/your-repo.git
 
+
 6. Push the code to the remote repository:
+   it pull origin master --rebase
    If using 'master':
    git push -u origin master
 
