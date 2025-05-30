@@ -4,6 +4,8 @@
 ~%2FBioinformatics%2FMICROviso%2FDESCRIPTION="8F1E5EE3"
 ~%2FBioinformatics%2FMICROviso%2FNAMESPACE="66523590"
 ~%2FBioinformatics%2FMICROviso%2FR%2FDEseq2_global.R="7497328A"
+~%2FBioinformatics%2FMICROviso%2FR%2FDEseq2_pairwise.R="4BB5A391"
+~%2FBioinformatics%2FMICROviso%2FR%2FDEseq2_posthoc.R="4ADF99DF"
 ~%2FBioinformatics%2FMICROviso%2FR%2FImport_metadata.R="0770ED99"
 ~%2FBioinformatics%2FMICROviso%2FR%2Falpha_cal.R="D1632565"
 ~%2FBioinformatics%2FMICROviso%2FR%2Fcal_alpha.R="809A6678"

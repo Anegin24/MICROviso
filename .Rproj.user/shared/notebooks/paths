@@ -1,6 +1,8 @@
 /home/anegin97/Bioinformatics/MICROviso/DESCRIPTION="3E669C72"
 /home/anegin97/Bioinformatics/MICROviso/NAMESPACE="F334675F"
 /home/anegin97/Bioinformatics/MICROviso/R/DEseq2_global.R="A7259374"
+/home/anegin97/Bioinformatics/MICROviso/R/DEseq2_pairwise.R="631FDFF5"
+/home/anegin97/Bioinformatics/MICROviso/R/DEseq2_posthoc.R="60431E5E"
 /home/anegin97/Bioinformatics/MICROviso/R/Import_metadata.R="F3E3EC82"
 /home/anegin97/Bioinformatics/MICROviso/R/cal_alpha.R="CEDA7418"
 /home/anegin97/Bioinformatics/MICROviso/R/cal_alpha_stat.R="0378A190"
