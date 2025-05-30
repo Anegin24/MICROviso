@@ -36,7 +36,7 @@ devtools::install_github("anegin24/MICROviso")
 
 ## 1. Import dữ liệu từ `phyloseq`
 
-Chức năng này sẽ import đối tượng phyloseq vào R và xuất thẳng ra các bảng table, taxonomy, metadata
+Chức năng này sẽ import đối tượng phyloseq _**ps**_ vào R và xuất thẳng ra các bảng **_table, taxonomy, metadata_**
 
 ```r
 import_physeq("v3-v4.phyloseq")
@@ -54,9 +54,8 @@ metadata <- import_metadata("sample-metadata.tsv")
 
 ---
 
-## 🧮 3. Tính đa dạng alpha
+## 3. Tính đa dạng alpha (alpha diversity)
 
-### `alpha_cal(data, metrics)`
 - Tính toán các chỉ số đa dạng alpha như `Shannon`, `Observed`, `Chao1`, `Simpson`.
 - Trả về: Data frame chứa giá trị alpha diversity.
 
@@ -66,11 +65,10 @@ alpha <- alpha_cal(ps)
 
 ---
 
-## 📊 4. Vẽ biểu đồ alpha diversity
+## 4. Vẽ biểu đồ alpha diversity
 
-### `plot_alpha(alpha, metadata, x, facet, metrics)`
-- Vẽ boxplot và biểu đồ tổng hợp alpha diversity.
-- Trả về: List gồm `plots` và `combined`.
+- Vẽ boxplot và thực hiện thống kê theo các cặp.
+- Đầu ra: Các biểu đồ riêng lẻ theo từng metrics, và biểu đồ tổng hợp.
 
 ```r
 alphaplot<-plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", facet = "timeline")
@@ -78,9 +76,9 @@ alphaplot<-plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", facet
 
 ---
 
-## 🧬 5. Vẽ biểu đồ thành phần Phylum
+## 5. Vẽ biểu đồ beta diversity
 
-### `plot_phylum(data, group_vars, facet = NULL, x_var = NULL)`
+
 - Vẽ biểu đồ thành phần vi khuẩn cấp độ phylum.
 
 ```r
@@ -89,9 +87,18 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 
 ---
 
-## 🧬 6. Vẽ biểu đồ thành phần Genus
+## 6. Vẽ biểu đồ thành phần Phylum
 
-### `plot_genus(data, group_vars, top = 20, facet = NULL, x_var = NULL)`
+- Vẽ biểu đồ thành phần vi khuẩn cấp độ phylum.
+  
+```r
+plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_var = "treatment")
+```
+
+---
+
+## 🧬 7. Vẽ biểu đồ thành phần Genus
+
 - Vẽ biểu đồ thành phần genus phổ biến nhất.
 
 ```r
@@ -100,7 +107,3 @@ plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timel
 
 ---
 
-## 📌 Gợi ý
-
-- Lưu biểu đồ: `ggsave("Observed.pdf", Observed)`
-- Lọc mẫu: `dplyr::filter(metadata, treatment == "Control")`
