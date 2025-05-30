@@ -11,8 +11,8 @@ Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh v�
 - Tính toán thống kê
 ---
 ## Setup
-Download: 
-Installation
+
+**Installation**
 
 Dependencies:
 
