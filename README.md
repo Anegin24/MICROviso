@@ -97,7 +97,7 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 
 ---
 
-## 🧬 7. Vẽ biểu đồ thành phần Genus
+## 7. Vẽ biểu đồ thành phần Genus
 
 - Vẽ biểu đồ thành phần genus phổ biến nhất.
 
