@@ -75,6 +75,12 @@ metadata <- import_metadata("sample-metadata.tsv")
 alpha <- cal_alpha(ps)
 ```
 
+Chúng ta có thể tính toán tạo bảng statistic
+
+```r
+res3 <- cal_alpha_stat(alpha, metadata, group_col = "treatment", strata = "timeline")
+```
+
 ---
 
 ## 4. Vẽ biểu đồ alpha diversity
