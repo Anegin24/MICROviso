@@ -94,7 +94,7 @@ alphaplot<-plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", facet
 - Vẽ biểu đồ thành phần vi khuẩn cấp độ phylum.
 
 ```r
-betadata<-plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_var = "treatment")
+betadata<-plot_beta(ps, color = "treatment",facet = "timeline",distance_method = "bray",method = "PCoA")
 ```
 
 ---
