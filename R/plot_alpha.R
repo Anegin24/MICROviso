@@ -28,11 +28,13 @@
 #' @importFrom dplyr inner_join
 #' @importFrom ggpubr stat_compare_means
 #' @export
-plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao1", "Simpson"), x, facet = NULL) {
-  match_col <- function(df1, df2) {
+plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao1", "Simpson"),
+                       x, facet = NULL) {
+
+  match_col_exact <- function(df1, df2) {
     for (col1 in colnames(df1)) {
       for (col2 in colnames(df2)) {
-        if (all(na.omit(df1[[col1]]) %in% df2[[col2]])) {
+        if (setequal(na.omit(df1[[col1]]), na.omit(df2[[col2]]))) {
           return(c(col1, col2))
         }
       }
@@ -40,18 +42,17 @@ plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao
     return(NULL)
   }
 
-  id_cols <- match_col(alpha, metadata)
-  if (is.null(id_cols)) stop("❌ Cannot detect matching SampleID columns by content")
+  # Auto-match ID columns
+  id_cols <- match_col_exact(alpha, metadata)
+  if (is.null(id_cols)) {
+    stop("❌ Cannot detect matching SampleID columns by exact content")
+  }
 
+  # Merge using detected ID columns
   merged <- dplyr::inner_join(alpha, metadata, by = setNames(id_cols[2], id_cols[1]))
 
-  # Generate comparisons for stat_compare_means
   group_levels <- unique(na.omit(merged[[x]]))
-  if (length(group_levels) >= 2) {
-    my_comparison <- combn(group_levels, 2, simplify = FALSE)
-  } else {
-    my_comparison <- NULL
-  }
+  my_comparison <- if (length(group_levels) >= 2) combn(group_levels, 2, simplify = FALSE) else NULL
 
   plots <- list()
   for (metric in metrics) {
@@ -62,10 +63,7 @@ plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao
 
     if (!is.null(my_comparison)) {
       p <- p + ggpubr::stat_compare_means(comparisons = my_comparison,
-                                          label = "p.format",           # hoặc "p.signif"
-                                          tip.length = 0.01,
-                                          step.increase = 0.1           # giúp đẩy p-value lên cao dần để tránh trùng
-      )
+                                          label = "p.format", tip.length = 0.01, step.increase = 0.1)
     }
 
     if (!is.null(facet)) {
@@ -77,7 +75,8 @@ plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao
   }
 
   if (all(c("Shannon", "Observed", "Chao1", "Simpson") %in% names(plots))) {
-    combined <- (plots[["Shannon"]] | plots[["Observed"]]) / (plots[["Chao1"]] | plots[["Simpson"]]) +
+    combined <- (plots[["Shannon"]] | plots[["Observed"]]) /
+      (plots[["Chao1"]] | plots[["Simpson"]]) +
       patchwork::plot_annotation(tag_levels = "A") &
       theme(plot.tag = element_text(size = 16, face = "bold"))
   } else {
@@ -87,3 +86,4 @@ plot_alpha <- function(alpha, metadata, metrics = c("Observed", "Shannon", "Chao
   assign("alpha_combined", combined, envir = globalenv())
   return(list(plots = plots, combined = combined))
 }
+
