@@ -34,18 +34,13 @@ MICROviso:
 devtools::install_github("anegin24/MICROviso")
 ```
 
-## 📁 1. Import dữ liệu từ `phyloseq`
+## 1. Import dữ liệu từ `phyloseq`
 
 ### `import_physeq(path)`
-- Đọc file `.rds` chứa đối tượng `phyloseq` và tách thành `otu_table`, `tax_table`, `sample_data`.
-- Trả về: List gồm `ps`, `taxonomy`, `table`.
+Chức năng này sẽ import đối tượng phyloseq vào R và xuất thẳng ra các bảng table,taxonomy,metadata
 
 ```r
 import_physeq("v3-v4.phyloseq")
-ps 
-taxonomy 
-table
-metadata
 ```
 
 ---
