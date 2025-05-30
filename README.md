@@ -36,7 +36,6 @@ devtools::install_github("anegin24/MICROviso")
 
 ## 1. Import dữ liệu từ `phyloseq`
 
-### `import_physeq(path)`
 Chức năng này sẽ import đối tượng phyloseq vào R và xuất thẳng ra các bảng table,taxonomy,metadata
 
 ```r
