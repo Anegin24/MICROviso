@@ -79,7 +79,6 @@ plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
     labs(x = x_var, y = "Mean Relative Abundance", fill = "Genus") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     guides(fill = guide_legend(ncol = 1)) +
-    theme_q2r() +
     scale_fill_manual(name = NULL, values = c(
       brewer.pal(8, "Dark2"),
       "blue", "gray30", "yellow", "red", "darkmagenta", "green", "pink2", "darkgreen",

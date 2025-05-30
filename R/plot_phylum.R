@@ -60,8 +60,7 @@ plot_phylum <- function(data, group_vars, facet = NULL, x_var = NULL) {
     geom_bar(stat = "identity", position = "stack") +
     labs(x = x_var, y = "Mean Relative Abundance", fill = "Phylum") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-    guides(fill = guide_legend(ncol = 1)) +
-    theme_q2r()
+    guides(fill = guide_legend(ncol = 1))
 
   if (!is.null(facet)) {
     if (!facet %in% colnames(grouped)) {
