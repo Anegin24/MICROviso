@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/c928c978-755d-45cc-99a4-4fd140fe864d)# MICROVISO R Package
 ![image](https://github.com/user-attachments/assets/3628b8ca-1042-447b-8bbf-88692529ddb6)
 
 ## Mục đích
