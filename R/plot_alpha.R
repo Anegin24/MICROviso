@@ -24,7 +24,6 @@
 #'
 #' @seealso \code{\link{alpha_cal}}, \code{\link[ggplot2]{ggplot}}, \code{\link[patchwork]{wrap_plots}}
 #'
-#' @inheritParams plot_alpha
 #' @import ggplot2
 #' @importFrom dplyr inner_join
 #' @importFrom ggpubr stat_compare_means
