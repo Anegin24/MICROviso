@@ -16,6 +16,8 @@ Download:
 Installation
 
 Dependencies:
+
+```bash
 install.packages("tidyverse")
 install.packages("patchwork")
 install.packages("ggplot2")
@@ -25,6 +27,7 @@ BiocManager::install("phyloseq")
 install.packages("RColorBrewer")
 install.packages("devtools")
 Install.packages("ggpubr") 
+```
 
 MICROviso:
 
