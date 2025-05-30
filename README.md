@@ -32,6 +32,17 @@ MICROviso:
 devtools::install_github("anegin24/MICROviso")
 ```
 
+Kích hoạt các thư viện:
+library(phyloseq)
+library(tidyverse)
+library(patchwork)
+library(ggplot2)
+library(DESeq2)
+library(RColorBrewer)
+library(devtools)
+library(ggpubr)
+library(MICROviso) 
+
 ## 1. Import dữ liệu từ `phyloseq`
 
 Chức năng này sẽ import đối tượng phyloseq _**ps**_ vào R và xuất thẳng ra các bảng **_table, taxonomy, metadata_**
