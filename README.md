@@ -51,7 +51,7 @@ library(MICROviso)
 Chức năng này sẽ import đối tượng phyloseq _**ps**_ vào R và xuất thẳng ra các bảng **_table, taxonomy, metadata_**
 
 ```r
-import_physeq("v3-v4.phyloseq")
+import_phyloseq("v3-v4.phyloseq")
 ```
 
 ---
