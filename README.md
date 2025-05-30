@@ -10,9 +10,7 @@ Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh v�
 - Kiểm tra sự biến đổi theo nhóm
 - Tính toán thống kê
 ---
-## Setup
-
-**Installation**
+## Installation
 
 Dependencies:
 
