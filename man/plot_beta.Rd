@@ -27,7 +27,12 @@ plot_beta(
 \item{weighted}{Logical. Whether to use weighted version for UniFrac or Bray. Default is FALSE.}
 }
 \value{
-A \code{ggplot2} object of the ordination plot.
+A named list with:
+\describe{
+\item{distance}{The distance matrix (of class \code{dist}).}
+\item{ordination}{The ordination object.}
+\item{plot}{The resulting \code{ggplot2} ordination plot.}
+}
 }
 \description{
 This function calculates distance matrices (e.g., Bray-Curtis, Jaccard, UniFrac),

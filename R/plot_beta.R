@@ -11,7 +11,12 @@
 #' @param method Character. Ordination method (e.g., "PCoA", "NMDS", "DCA"). Default is "PCoA".
 #' @param weighted Logical. Whether to use weighted version for UniFrac or Bray. Default is FALSE.
 #'
-#' @return A `ggplot2` object of the ordination plot.
+#' @return A named list with:
+#' \describe{
+#'   \item{distance}{The distance matrix (of class `dist`).}
+#'   \item{ordination}{The ordination object.}
+#'   \item{plot}{The resulting `ggplot2` ordination plot.}
+#' }
 #'
 #' @import ggplot2
 #' @importFrom phyloseq distance ordinate plot_ordination
@@ -36,5 +41,10 @@ plot_beta <- function(data, color, facet = NULL,
     p <- p + facet_wrap(as.formula(paste("~", facet)))
   }
 
-  return(p)
+  # Return all components
+  return(list(
+    distance = dist,
+    ordination = ordination,
+    plot = p
+  ))
 }
