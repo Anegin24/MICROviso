@@ -1,6 +1,7 @@
-# MICROVISO R Package
+![image](https://github.com/user-attachments/assets/c928c978-755d-45cc-99a4-4fd140fe864d)# MICROVISO R Package
+![image](https://github.com/user-attachments/assets/3628b8ca-1042-447b-8bbf-88692529ddb6)
 
-## 📦 Mục đích
+## Mục đích
 
 Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh vật từ đối tượng `phyloseq`, bao gồm:
 
@@ -8,11 +9,28 @@ Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh v�
 - Tính toán đa dạng alpha
 - Biểu đồ thành phần vi sinh vật theo cấp độ phân loại (phylum, genus)
 - Kiểm tra sự biến đổi theo nhóm
-
+- Tính toán thống kê
 ---
 ## Setup
 Download: 
-Setup: devtools::install_local("~/Bioinformatics/MICROviso-master.zip")
+Installation
+
+Dependencies:
+install.packages("tidyverse")
+install.packages("patchwork")
+install.packages("ggplot2")
+install.packages("BiocManager") 
+BiocManager::install("DESeq2")
+BiocManager::install("phyloseq")
+install.packages("RColorBrewer")
+install.packages("devtools")
+Install.packages("ggpubr") 
+
+MICROviso:
+
+```bash
+devtools::install_github("anegin24/MICROviso")
+```
 
 ## 📁 1. Import dữ liệu từ `phyloseq`
 
