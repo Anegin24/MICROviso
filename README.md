@@ -44,11 +44,9 @@ import_physeq("v3-v4.phyloseq")
 
 ---
 
-## 📁 2. Import metadata
+## 2. Import metadata
 
-### `import_metadata(path)`
-- Đọc file metadata (hỗ trợ `.csv`, `.tsv`, `.txt`, `.xlsx`).
-- Trả về: Data frame metadata.
+Trong trường hợp chúng ta cần thay đổi metadata, import metadata mới thì có thể sử dụng chức năng *import_metdata*
 
 ```r
 metadata <- import_metadata("sample-metadata.tsv")
