@@ -43,7 +43,7 @@ plot_beta <- function(data, color, facet = NULL,
 
   # Return all components
   return(list(
-    distance = dist,
+    distance = as.matrix(dist),
     ordination = ordination,
     plot = p
   ))
