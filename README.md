@@ -72,7 +72,7 @@ metadata <- import_metadata("sample-metadata.tsv")
 - Trả về: Data frame chứa giá trị alpha diversity.
 
 ```r
-alpha <- alpha_cal(ps)
+alpha <- cal_alpha(ps)
 ```
 
 ---
