@@ -33,6 +33,8 @@ devtools::install_github("anegin24/MICROviso")
 ```
 
 Kích hoạt các thư viện:
+
+```bash
 library(phyloseq)
 library(tidyverse)
 library(patchwork)
@@ -41,7 +43,8 @@ library(DESeq2)
 library(RColorBrewer)
 library(devtools)
 library(ggpubr)
-library(MICROviso) 
+library(MICROviso)
+```
 
 ## 1. Import dữ liệu từ `phyloseq`
 
