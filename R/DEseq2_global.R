@@ -17,7 +17,7 @@
 #' @importFrom DESeq2 DESeq results
 #' @importFrom rlang sym
 #' @export
-detect_interaction_genus <- function(physeq, taxrank = "Genus",
+DEseq2_global <- function(physeq, taxrank = "Genus",
                                      group = NULL,
                                      time_var = NULL,
                                      alpha = 0.05) {
