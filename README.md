@@ -120,7 +120,7 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 - Vẽ biểu đồ thành phần genus phổ biến nhất.
 
 ```r
-DEseq2_global(physeq = ps,taxrank = "Genus",group = "treatment",time_var = "timeline",alpha = 0.05)
+deseq_global(physeq = ps,taxrank = "Genus",group = "treatment",time_var = "timeline",alpha = 0.05)
 
 ```
 
