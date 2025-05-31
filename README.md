@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3628b8ca-1042-447b-8bbf-88692529ddb6)
+![image](https://github.com/user-attachments/assets/84f2237d-9614-4473-8054-01d7ba0782d6)
 
 ## Mục đích
 
