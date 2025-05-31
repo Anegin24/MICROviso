@@ -72,6 +72,11 @@ plot_genus <- function(data, group_vars, top = 20, facet = NULL, x_var = NULL) {
     mutate(Genus = if_else(Genus %in% top_genera$Genus, Genus, "Others")) %>%
     group_by(Genus, !!!syms(group_vars)) %>%
     summarise(mean_abundance = sum(mean_abundance), .groups = "drop")
+  grouped <- grouped %>%
+    mutate(
+      Genus = forcats::fct_reorder(Genus, mean_abundance),
+      Genus = forcats::fct_relevel(Genus, "Others", after = Inf)
+    )
 
   # Build plot
   p <- ggplot(grouped, aes(x = .data[[x_var]], y = mean_abundance, fill = Genus)) +
