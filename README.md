@@ -114,10 +114,19 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 ```
 
 ---
+## 6. Vẽ biểu đồ thành phần Genus
+
+- Vẽ biểu đồ thành phần vi khuẩn cấp độ genus.
+  
+```r
+plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timeline", x_var = "treatment")
+```
+
+---
 
 ## 7. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật
 
-- Vẽ biểu đồ thành phần genus phổ biến nhất.
+- Plot significant differential
 
 ```r
 deseq_global(physeq = ps,taxrank = "Genus",group = "treatment",time_var = "timeline",alpha = 0.05)
