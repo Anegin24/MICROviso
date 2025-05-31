@@ -23,7 +23,7 @@ BiocManager::install("DESeq2")
 BiocManager::install("phyloseq")
 install.packages("RColorBrewer")
 install.packages("devtools")
-Install.packages("ggpubr") 
+install.packages("ggpubr") 
 ```
 
 MICROviso:
