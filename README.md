@@ -126,7 +126,7 @@ plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timel
 
 ## 7. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật
 
-- Plot significant differential
+- Đối với những thử nghiệm so sánh đa biến theo thời gian
 
 ```r
 deseq_global(physeq = ps,taxrank = "Genus",group = "treatment",time_var = "timeline",alpha = 0.05)
@@ -138,5 +138,11 @@ result <- DEseq2_pairwise(physeq = ps, time_point = "Week 6", group = "treatment
 			comparison = c("ABX 0.5X", "Control"))
 ```
 
----
-
+- Đối với những thử nghiệm so sánh đơn biến 
+```bash
+result <- DEseq2_cross(
+  physeq = physeq,
+  group = "When",
+  comparison = c("Early", "Late")
+)
+```
