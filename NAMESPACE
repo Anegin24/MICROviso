@@ -3,7 +3,6 @@
 export(DEseq2_pairwise)
 export(cal_alpha)
 export(cal_alpha_stat)
-export(deseq_global)
 export(detect_interaction_genus)
 export(import_metadata)
 export(import_phyloseq)
