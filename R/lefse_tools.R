@@ -78,6 +78,12 @@ run_lefse_pairwise <- function(se, classCol, groups, lda_threshold = 2) {
   res$group_A <- groups[1]
   res$group_B <- groups[2]
 
+  # Gắn taxonomy vào kết quả
+  tax <- as.data.frame(rowData(subset_se))
+  tax$feature <- rownames(tax)
+
+  res <- merge(res, tax, by = "feature", all.x = TRUE)
+
   p <- lefser::lefserPlot(res, trim.names = TRUE)
 
   return(list(res = res, plot = p))
