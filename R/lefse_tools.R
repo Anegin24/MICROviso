@@ -79,10 +79,19 @@ run_lefse_pairwise <- function(se, classCol, groups, lda_threshold = 2) {
   res$group_B <- groups[2]
 
   # Gắn taxonomy vào kết quả
-  tax <- as.data.frame(rowData(subset_se))
-  tax$feature <- rownames(tax)
+  tax<-as.data.frame(tax_table(ps))
+  tax$features <- rownames(tax)
 
-  res <- merge(res, tax, by = "feature", all.x = TRUE)
+  res <- merge(res, tax, by = "features")
+
+  res <- res %>%
+    mutate(
+      features = ifelse(
+        !is.na(Species) & Species != "" & Species != "unclassified",
+        paste0(features, "_g_", Genus, ";s_", Species),
+        paste0(features, "_g_", Genus)
+      )
+    )
 
   p <- lefser::lefserPlot(res, trim.names = TRUE)
 
