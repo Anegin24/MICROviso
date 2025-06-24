@@ -21,9 +21,11 @@ install.packages("ggplot2")
 install.packages("BiocManager") 
 BiocManager::install("DESeq2")
 BiocManager::install("phyloseq")
+BiocManager::install("lefser")
 install.packages("RColorBrewer")
 install.packages("devtools")
-install.packages("ggpubr") 
+install.packages("ggpubr")
+install.packages("SummarizedExperiment")
 ```
 
 MICROviso:
@@ -44,6 +46,8 @@ library(RColorBrewer)
 library(devtools)
 library(ggpubr)
 library(MICROviso)
+library(lefser)
+library(SummarizedExperiment)
 ```
 
 ## 1. Import dữ liệu từ `phyloseq`
