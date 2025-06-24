@@ -114,7 +114,7 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 ```
 
 ---
-## 6. Vẽ biểu đồ thành phần Genus
+## 7. Vẽ biểu đồ thành phần Genus
 
 - Vẽ biểu đồ thành phần vi khuẩn cấp độ genus.
   
@@ -124,7 +124,7 @@ plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timel
 
 ---
 
-## 7. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật (lefse)
+## 8. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật (lefse)
 
 Chuyển dữ liệu _phyloseq object_ thành dạng _SummarizedExperiment_
 
