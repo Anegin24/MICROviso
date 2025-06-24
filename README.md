@@ -124,25 +124,16 @@ plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timel
 
 ---
 
-## 7. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật
+## 7. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật (lefse)
 
-- Đối với những thử nghiệm so sánh đa biến theo thời gian
+Chuyển dữ liệu _phyloseq object_ thành dạng _SummarizedExperiment_
 
-```r
-deseq_global(physeq = ps,taxrank = "Genus",group = "treatment",time_var = "timeline",alpha = 0.05)
-
-```
-
-```r
-result <- DEseq2_pairwise(physeq = ps, time_point = "Week 6", group = "treatment", time_var = "timeline", 
-			comparison = c("ABX 0.5X", "Control"))
-```
-
-- Đối với những thử nghiệm so sánh đơn biến 
 ```bash
-result <- DEseq2_cross(
-  physeq = physeq,
-  group = "When",
-  comparison = c("Early", "Late")
-)
+se <- phyloseq_to_se(ps)
+```
+
+Tính toán LDA và vẽ biểu đồ lefse
+
+```bash
+out <- run_lefse_pairwise(se, classCol = "group", groups = c("Mus musculus_laboratory", "Mus musculus_wild"))
 ```
