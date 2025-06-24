@@ -82,7 +82,10 @@ run_lefse_pairwise <- function(se, classCol, groups, lda_threshold = 2) {
   tax<-as.data.frame(tax_table(ps))
   tax$features <- rownames(tax)
 
+  #Đảm bảo không lỗi legend title
+  class_attr <- attr(res, "classes")
   res <- merge(res, tax, by = "features")
+  attr(res, "classes") <- class_attr
 
   res <- res %>%
     mutate(
