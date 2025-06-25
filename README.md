@@ -141,3 +141,23 @@ Tính toán LDA và vẽ biểu đồ lefse
 ```bash
 out <- run_lefse_pairwise(se, classCol = "group", groups = c("Mus musculus_laboratory", "Mus musculus_wild"))
 ```
+## 9. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật (DESeq2)
+
+Cross Section study
+
+```bash
+DEseq2_cross(physeq, group = NULL, comparison = NULL, padj_cutoff = 0.05)
+```
+
+Detect Significant Genus with Group × Time Interaction (LRT Test)
+
+```bash
+DEseq2_global(physeq, taxrank = "Genus", group = NULL, time_var = NULL, alpha = 0.05)
+```
+
+Pairwise comparison
+
+```bash
+DEseq2_pairwise(physeq, time_point, group = "treatment", time_var = "timeline", comparison = c("groupA", "groupB"), padj_cutoff = 0.05)
+```
+
