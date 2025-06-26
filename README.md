@@ -141,7 +141,7 @@ se <- phyloseq_to_se(ps)
 Tính toán LDA và vẽ biểu đồ lefse
 
 ```bash
-out <- run_lefse_pairwise(se, classCol = "group", groups = c("Mus musculus_laboratory", "Mus musculus_wild"))
+out <- run_lefse_pairwise(se, classCol = "class", groups = c("ABX 0.2X_Week 6", "Control_Week 6"))
 ```
 ## 9. Vẽ biểu đồ khác biệt thống kê các chi vi sinh vật (DESeq2)
 
