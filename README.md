@@ -160,6 +160,12 @@ DEseq2_global(physeq, taxrank = "Genus", group = NULL, time_var = NULL, alpha = 
 Pairwise comparison
 
 ```bash
-DEseq2_pairwise(physeq, time_point, group = "treatment", time_var = "timeline", comparison = c("groupA", "groupB"), padj_cutoff = 0.05)
+
+ps@sam_data$treatment <- gsub(" ", "_", ps@sam_data$treatment)
+
+sample_data(ps)$timeline <- gsub(" ", "_", sample_data(ps)$timeline)
+
+DEseq2_pairwise(ps, "Week_0", group = "treatment", time_var = "timeline", 
+                comparison = c("ABX_0.2X", "ABX_0.5X"), padj_cutoff = 0.05)
 ```
 
