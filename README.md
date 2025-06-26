@@ -123,6 +123,8 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 - Vẽ biểu đồ thành phần vi khuẩn cấp độ genus.
   
 ```r
+plot_genus(ps, group_vars = c("Sample"), top = 20, x_var = "Sample")
+
 plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timeline", x_var = "treatment")
 ```
 
