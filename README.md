@@ -160,13 +160,13 @@ out <- run_lefse_pairwise(se, classCol = "class", groups = c("ABX 0.2X_Week 6", 
 ### Cross-sectional study
 
 ```r
-DEseq2_cross(physeq, group = NULL, comparison = NULL, padj_cutoff = 0.05)
+DEseq2_cross(ps, group = NULL, comparison = NULL, padj_cutoff = 0.05)
 ```
 
 ### Detect Genus with Group × Time Interaction (LRT)
 
 ```r
-DEseq2_global(physeq, taxrank = "Genus", group = NULL, time_var = NULL, alpha = 0.05)
+DEseq2_global(ps, taxrank = "Genus", group = NULL, time_var = NULL, alpha = 0.05)
 ```
 
 ### Pairwise comparison
