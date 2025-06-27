@@ -21,33 +21,21 @@ Dependencies:
 
 ```r
 # CRAN
+install.packages("BiocManager")
 install.packages("tidyverse")
 install.packages("patchwork")
 install.packages("ggplot2")
 install.packages("RColorBrewer")
 install.packages("devtools")
 install.packages("ggpubr")
+install.packages("SummarizedExperiment")
 
 # Bioconductor
-install.packages("BiocManager")
 BiocManager::install("DESeq2")
 BiocManager::install("phyloseq")
 BiocManager::install("lefser")
 BiocManager::install("msa")
 BiocManager::install("phangorn")
-BiocManager::install("SummarizedExperiment")
-
-install.packages("tidyverse")
-install.packages("patchwork")
-install.packages("ggplot2")
-install.packages("BiocManager") 
-BiocManager::install("DESeq2")
-BiocManager::install("phyloseq")
-BiocManager::install("lefser")
-install.packages("RColorBrewer")
-install.packages("devtools")
-install.packages("ggpubr")
-install.packages("SummarizedExperiment")
 ```
 
 MICROviso:
