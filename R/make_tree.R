@@ -13,6 +13,7 @@
 #' @examples
 #' ps <- make_tree(ps, msa_method = "ClustalOmega", optimize_ml = TRUE)
 #' tree <- make_tree(ps, optimize_ml = FALSE, return_tree_only = TRUE)
+#' @export
 make_tree <- function(ps,
                       msa_method = "ClustalW",
                       optimize_ml = TRUE,
