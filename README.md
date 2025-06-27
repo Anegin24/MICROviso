@@ -170,11 +170,15 @@ DEseq2_global(physeq, taxrank = "Genus", group = NULL, time_var = NULL, alpha = 
 ```
 
 ### Pairwise comparison
+```r
+DEseq2_pairwise(ps, "Week 0", group = "treatment", time_var = "timeline", 
+                comparison = c("ABX 0.2X", "ABX 0.5X"), padj_cutoff = 0.05)
+```
+
+Nếu bạn gặp lỗi với những giá trị có dấu cách thì chạy 2 lệnh sau và thêm dấu "_" vào các giá trị trong câu lệnh trước 
 
 ```r
 ps@sam_data$treatment <- gsub(" ", "_", ps@sam_data$treatment)
 sample_data(ps)$timeline <- gsub(" ", "_", sample_data(ps)$timeline)
-
-DEseq2_pairwise(ps, "Week 0", group = "treatment", time_var = "timeline", 
-                comparison = c("ABX 0.2X", "ABX 0.5X"), padj_cutoff = 0.05)
 ```
+
