@@ -88,7 +88,7 @@ metadata <- import_metadata("sample-metadata.tsv")
 - Hỗ trợ vẽ cây trực quan với `ggtree`.
 
 ```r
-ps <- make_tree(ps, msa_method = "ClustalOmega", optimize_ml = TRUE, plot_tree = TRUE)
+tree <- make_tree(ps, msa_method = "ClustalOmega", optimize_ml = TRUE, plot_tree = TRUE)
 ```
 
 Tham số:
