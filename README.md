@@ -2,25 +2,22 @@
 
 # MICROviso
 
-## Mục đích
+**MICROviso** is an R package designed to support preprocessing and visualization of microbiome data using `phyloseq` objects. It provides a user-friendly workflow for:
 
-Bộ hàm hỗ trợ tiền xử lý và trực quan hóa dữ liệu vi sinh vật từ đối tượng `phyloseq`, bao gồm:
-
-- Import dữ liệu
-- Tạo cây phát sinh chủng loài (phylogenetic tree)
-- Tính toán đa dạng alpha
-- Biểu đồ thành phần vi sinh vật theo cấp độ phân loại (phylum, genus)
-- Kiểm tra sự biến đổi theo nhóm
-- Tính toán thống kê
+- Data import
+- Phylogenetic tree construction
+- Alpha diversity calculation
+- Visualization of microbial composition (Phylum and Genus levels)
+- Group-based variation analysis
+- Statistical testing
 
 ---
 
 ## Installation
 
-Dependencies:
+Install dependencies from CRAN:
 
 ```r
-# CRAN
 install.packages("BiocManager")
 install.packages("tidyverse")
 install.packages("patchwork")
@@ -29,8 +26,11 @@ install.packages("RColorBrewer")
 install.packages("devtools")
 install.packages("ggpubr")
 install.packages("SummarizedExperiment")
+```
 
-# Bioconductor
+Install dependencies from Bioconductor:
+
+```r
 BiocManager::install("DESeq2")
 BiocManager::install("phyloseq")
 BiocManager::install("lefser")
@@ -38,13 +38,13 @@ BiocManager::install("msa")
 BiocManager::install("phangorn")
 ```
 
-MICROviso:
+Install MICROviso from GitHub:
 
-```bash
+```r
 devtools::install_github("anegin24/MICROviso")
 ```
 
-Kích hoạt các thư viện:
+Load required libraries:
 
 ```r
 library(phyloseq)
@@ -62,9 +62,9 @@ library(SummarizedExperiment)
 
 ---
 
-## 1. Import dữ liệu từ `phyloseq`
+## 1. Import `phyloseq` Object
 
-Import đối tượng phyloseq _**ps**_ vào R và xuất ra các bảng **_table, taxonomy, metadata_**:
+Load your `phyloseq` object (e.g., `ps`) into R and extract the abundance table, taxonomy, and metadata:
 
 ```r
 import_phyloseq("v3-v4.phyloseq")
@@ -72,9 +72,7 @@ import_phyloseq("v3-v4.phyloseq")
 
 ---
 
-## 2. Import metadata
-
-Import metadata từ file bên ngoài (hoặc để cập nhật metadata):
+## 2. Import or Update Metadata
 
 ```r
 metadata <- import_metadata("sample-metadata.tsv")
@@ -82,29 +80,28 @@ metadata <- import_metadata("sample-metadata.tsv")
 
 ---
 
-## 3. Dựng cây phát sinh chủng loài (Phylogenetic Tree)
+## 3. Construct Phylogenetic Tree
 
-- Sử dụng hàm `make_tree()` để căn chỉnh trình tự từ `refseq(ps)`, xây dựng cây NJ, và (tuỳ chọn) tối ưu bằng Maximum Likelihood (GTR).
-- Hỗ trợ vẽ cây trực quan với `ggtree`.
+Use `make_tree()` to align sequences from `refseq(ps)`, construct a Neighbor-Joining tree, and optionally optimize with Maximum Likelihood (GTR). Tree visualization with `ggtree` is supported.
 
 ```r
 tree <- make_tree(ps, msa_method = "ClustalOmega", optimize_ml = TRUE, plot_tree = TRUE)
 ```
 
-Tham số:
-- `msa_method`: "ClustalW", "Muscle", hoặc "ClustalOmega"
-- `optimize_ml`: TRUE/FALSE để bật hoặc tắt tối ưu hóa bằng Maximum Likelihood
-- `plot_tree`: TRUE/FALSE để vẽ cây
+Parameters:
+- `msa_method`: one of `"ClustalW"`, `"Muscle"`, or `"ClustalOmega"`
+- `optimize_ml`: `TRUE/FALSE` to enable ML optimization
+- `plot_tree`: `TRUE/FALSE` to plot the tree
 
 ---
 
-## 4. Tính đa dạng alpha (alpha diversity)
+## 4. Alpha Diversity Calculation
 
 ```r
 alpha <- cal_alpha(ps)
 ```
 
-Tạo bảng thống kê:
+Generate statistical summary:
 
 ```r
 res3 <- cal_alpha_stat(alpha, metadata, group_col = "treatment", strata = "timeline")
@@ -112,7 +109,7 @@ res3 <- cal_alpha_stat(alpha, metadata, group_col = "treatment", strata = "timel
 
 ---
 
-## 5. Vẽ biểu đồ alpha diversity
+## 5. Alpha Diversity Plot
 
 ```r
 alphaplot <- plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", facet = "timeline")
@@ -120,7 +117,7 @@ alphaplot <- plot_alpha(alpha = alpha, metadata = metadata, x = "treatment", fac
 
 ---
 
-## 6. Vẽ biểu đồ beta diversity
+## 6. Beta Diversity Plot
 
 ```r
 betadata <- plot_beta(ps, color = "treatment", facet = "timeline", distance_method = "bray", method = "PCoA")
@@ -128,7 +125,7 @@ betadata <- plot_beta(ps, color = "treatment", facet = "timeline", distance_meth
 
 ---
 
-## 7. Vẽ biểu đồ thành phần Phylum
+## 7. Phylum Composition Plot
 
 ```r
 plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_var = "treatment")
@@ -136,7 +133,7 @@ plot_phylum(ps, group_vars = c("treatment", "timeline"), facet = "timeline", x_v
 
 ---
 
-## 8. Vẽ biểu đồ thành phần Genus
+## 8. Genus Composition Plot
 
 ```r
 plot_genus(ps, group_vars = c("Sample"), top = 20, x_var = "Sample")
@@ -146,7 +143,7 @@ plot_genus(ps, group_vars = c("treatment", "timeline"), top = 20, facet = "timel
 
 ---
 
-## 9. Phân tích sự khác biệt vi sinh vật với LEfSe
+## 9. Microbial Differential Abundance with LEfSe
 
 ```r
 se <- phyloseq_to_se(ps)
@@ -155,30 +152,32 @@ out <- run_lefse_pairwise(se, classCol = "class", groups = c("ABX 0.2X_Week 6", 
 
 ---
 
-## 10. Phân tích khác biệt bằng DESeq2
+## 10. Differential Abundance with DESeq2
 
-### Cross-sectional study
+### Cross-sectional comparison
 
 ```r
 DEseq2_cross(ps, group = NULL, comparison = NULL, padj_cutoff = 0.05)
 ```
 
-### Detect Genus with Group × Time Interaction (LRT)
+### Detect genus-level Group × Time interaction (LRT test)
 
 ```r
 DEseq2_global(ps, taxrank = "Genus", group = NULL, time_var = NULL, alpha = 0.05)
 ```
 
 ### Pairwise comparison
+
 ```r
 DEseq2_pairwise(ps, "Week 0", group = "treatment", time_var = "timeline", 
                 comparison = c("ABX 0.2X", "ABX 0.5X"), padj_cutoff = 0.05)
 ```
 
-Nếu bạn gặp lỗi với những giá trị có dấu cách thì chạy 2 lệnh sau và thêm dấu "_" vào các giá trị trong câu lệnh trước 
+**Note:** If your group values contain spaces, run the following to replace spaces with underscores:
 
 ```r
 ps@sam_data$treatment <- gsub(" ", "_", ps@sam_data$treatment)
 sample_data(ps)$timeline <- gsub(" ", "_", sample_data(ps)$timeline)
 ```
+
 
